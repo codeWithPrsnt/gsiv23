@@ -17,6 +17,7 @@ function Navbar(){
     const dispatch = useDispatch();
 
     function search(val){
+        console.log("search");
         const options = {
             method: 'GET',
             headers: {
@@ -49,13 +50,25 @@ function Navbar(){
         .catch(err => console.error(err));
     }
 
+    const debounce = function(fn,c){
+        let timer;
+        return function(){
+            let context = this;
+            let args=arguments;
+            clearTimeout(timer);
+            timer=setTimeout(() => {
+                fn.apply(context,args);
+            }, c);
+        }
+    }
+
     return(<div className="Apps">
             {movieId==0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'80%' ,float:'left',backgroundColor:'#9B9B9B'}}>
             <IconButton type="button" sx={{ p: '10px' }} aria-label="search"><SearchIcon /></IconButton>
             <InputBase sx={{ ml: 1, flex: 1, width:500,maxWidth:'80%' }} placeholder="Search " inputProps={{ 'aria-label': 'search' }} 
-            onChange={(e)=>{
+            onKeyUp={(e)=>{
                 var val=e.target.value;
-                if (val.length>0)search(val);
+                if (val.length>0)debounce(search(val),3000);
                 else fetchMovies();
                 }}/>
             
