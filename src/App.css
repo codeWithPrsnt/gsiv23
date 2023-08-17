@@ -6,10 +6,29 @@
   box-shadow: 2px 2px 5px gray;
   padding: 10px;
 }
+.detailCard{
+  width:100%;
+  height:300px;
+}
+
+.detailImg{
+  width: 25%;
+  height: 250px;
+  object-fit: fill;
+  float: left;
+  margin: 5px;
+  
+}
+.movieDetail{
+  margin-left: 25%;
+  padding: 10px;
+  
+}
 .card{
   width: 20%;
   height: 300px;
   float: left;
+
 
 }
 .card-img{
