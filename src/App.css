@@ -1,10 +1,10 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Apps {
+  box-shadow:aquamarine;
+  position: fixed;
+  height: 50px;
+  width: 100%;
+  box-shadow: 2px 2px 5px gray;
+  padding: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
