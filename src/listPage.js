@@ -11,9 +11,10 @@ export default function ListPage(){
     
     const movieList = useSelector((state)=>state.movieList)
     const dispatch = useDispatch();
+    const [pageNumber,setPageNumber]=useState(1);
     
     useEffect(()=>fetchMovies()
-    ,[])
+    ,[pageNumber])
 
     function fetchMovies(){
         const options = {
@@ -24,7 +25,7 @@ export default function ListPage(){
         }
         };
         
-        fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pageNumber}`, options)
         .then(response => response.json())
         .then(response => {
             dispatch(addMovieList(response.results));
@@ -33,11 +34,11 @@ export default function ListPage(){
         .catch(err => console.error(err));
     }
 return(
-    <div style={{position:'relative',justifyItems:'right'}}>
+    <div >
             {movieList.map((movie)=>{
             return (
             <div className="card" key={movie.id}>
-            <Card   sx={{padding:1}} onClick={()=>{dispatch(addMovieId(movie.id))}}>
+            <Card   sx={{padding:2,m:2 ,height:300}} onClick={()=>{dispatch(addMovieId(movie.id))}}>
                 <img
                 className='card-img'
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -61,6 +62,10 @@ return(
             </Card></div>
             );
         })}
+        
+        <div className='page'>
+            <button disabled={pageNumber===1} onClick={()=>setPageNumber(pageNumber-1)}><b>Previous</b></button ><b>{pageNumber}</b><button  onClick={()=>setPageNumber(pageNumber+1)}><b>Next</b></button>
+        </div>
         </div>
 
     )}
