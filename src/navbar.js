@@ -63,9 +63,9 @@ function Navbar(){
     }
 
     return(<div className="Apps">
-            {movieId==0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'80%' ,float:'left',backgroundColor:'#9B9B9B'}}>
-            <IconButton type="button" sx={{ p: '10px',width:50 }} aria-label="search"><SearchIcon /></IconButton>
-            <InputBase sx={{ ml: 1, flex: 1, width:400,maxWidth:'80%' }} placeholder="Search " inputProps={{ 'aria-label': 'search' }} 
+            {movieId==0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'70%' ,float:'left',backgroundColor:'#9B9B9B'}}>
+            <IconButton type="button" sx={{ p: '10px',width:50 , maxWidth:'10%' }} aria-label="search"><SearchIcon /></IconButton>
+            <InputBase sx={{ ml: 1, flex: 1, width:400,maxWidth:'60%' }} placeholder="Search " inputProps={{ 'aria-label': 'search' }} 
             onKeyUp={(e)=>{
                 var val=e.target.value;
                 if (val.length>0)debounce(search(val),3000);

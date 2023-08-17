@@ -75,33 +75,25 @@ button{
           line-clamp: 2; 
   -webkit-box-orient: vertical;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media screen and (max-width: 350px) {
+  .card{
+    width: 100%;
+  }
+}
+@media (min-width:350px) and (max-width: 600px) {
+  .card{
+    width: 50%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width:600px) and (max-width: 900px) {
+  .card{
+    width: 33%;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (min-width:900px) and (max-width: 1200px) {
+  .card{
+    width: 25%;
   }
 }
