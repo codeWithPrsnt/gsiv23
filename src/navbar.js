@@ -16,7 +16,7 @@ function Navbar(){
     const movieId = useSelector((state)=>state.movieId);
     const dispatch = useDispatch();
 
-    function search(val){
+    const search=(val)=>{
         console.log("search");
         const options = {
             method: 'GET',
@@ -50,25 +50,25 @@ function Navbar(){
         .catch(err => console.error(err));
     }
 
-    const debounce = function(fn,c){
+    const debounce = (fn,d=500)=>{
         let timer;
-        return function(){
-            let context = this;
-            let args=arguments;
+        return (...val)=>{
+            
             clearTimeout(timer);
-            timer=setTimeout(() => {
-                fn.apply(context,args);
-            }, c);
+            timer=setTimeout(()=>{
+                fn.apply(this,val);
+            },d)
         }
     }
+    const debouncing =debounce(search);
 
     return(<div className="Apps">
             {movieId==0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'60%' ,float:'left',backgroundColor:'#9B9B9B'}}>
             <IconButton type="button" sx={{ p: '10px',width:50 , maxWidth:'10%' }} aria-label="search"><SearchIcon /></IconButton>
             <InputBase sx={{ ml: 1, flex: 1, width:400,maxWidth:'60%' }} placeholder="Search " inputProps={{ 'aria-label': 'search' }} 
-            onKeyUp={(e)=>{
+            onChange={(e)=>{
                 var val=e.target.value;
-                if (val.length>0)debounce(search(val),3000);
+                if (val.length>0)debouncing(val);
                 else fetchMovies();
                 }}/>
             
