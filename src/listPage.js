@@ -15,7 +15,7 @@ export default function ListPage(){
     useEffect(()=>fetchMovies()
     ,[])
 
-    const fetchMovies=()=>{
+    function fetchMovies(){
         const options = {
         method: 'GET',
         headers: {
@@ -64,3 +64,4 @@ return(
         </div>
 
     )}
+    
