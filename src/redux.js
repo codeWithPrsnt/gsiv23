@@ -2,9 +2,18 @@ import {createStore} from 'redux';
 
 const initialState = {
     movieId:0,
-    movieList:[]
+    movieList:[],
+    spinner:false
     
 }
+
+export const toggleSpinner = (val) =>{
+    return {
+        type:"SPINNER",
+        payLoad:val
+    }
+}
+
 export const addMovieList = (list) =>{
     return {
         type:"ADD_MOVIELIST",
@@ -51,6 +60,10 @@ const movieReducer = (state = initialState,action)=>{
         case 'UPDATE_MOVIELIST':return{
             ...state,
             movieList:action.payLoad
+        }
+        case 'SPINNER':return{
+            ...state,
+            spinner:action.payLoad
         }
         default:return state 
     }

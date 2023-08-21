@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import * as React from 'react';
 import { useEffect,useState } from 'react';
-import {addMovieId,addMovieList} from './redux';
+import {addMovieId,addMovieList,toggleSpinner} from './redux';
 import { useDispatch} from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -17,6 +17,9 @@ export default function ListPage(){
     ,[pageNumber])
 
     function fetchMovies(){
+        dispatch(toggleSpinner(true));
+        console.log('fetchMovies');
+        
         const options = {
         method: 'GET',
         headers: {
@@ -30,12 +33,15 @@ export default function ListPage(){
         .then(response => {
             dispatch(addMovieList(response.results));
             
+            
         })
         .catch(err => console.error(err));
+        
     }
 return(
     <div >
-            {movieList.map((movie)=>{
+            {movieList && movieList.map((movie)=>{
+                dispatch(toggleSpinner(false));
             return (
             <div className="card" key={movie.id}>
             <Card   sx={{padding:2,m:2 ,height:300}} onClick={()=>{dispatch(addMovieId(movie.id))}}>
@@ -61,7 +67,9 @@ return(
                 
             </Card></div>
             );
-        })}
+        })
+        
+        }
         
         <div className='page'>
             <button disabled={pageNumber===1} onClick={()=>setPageNumber(pageNumber-1)}><b>Previous</b></button ><b>{pageNumber}</b><button  onClick={()=>setPageNumber(pageNumber+1)}><b>Next</b></button>
