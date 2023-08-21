@@ -10,6 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {deleteMovieId,updateMovieList,addMovieList} from './redux';
 import { useDispatch} from 'react-redux';
 import { useSelector } from 'react-redux';
+import { toggleSpinner } from './redux';
 
 
 function Navbar(){
@@ -17,6 +18,7 @@ function Navbar(){
     const dispatch = useDispatch();
 
     const search=(val)=>{
+        dispatch(toggleSpinner(true));
         console.log("search");
         const options = {
             method: 'GET',
@@ -33,6 +35,7 @@ function Navbar(){
     }
 
     function fetchMovies(){
+        dispatch(toggleSpinner(true));
         const options = {
         method: 'GET',
         headers: {
@@ -48,6 +51,7 @@ function Navbar(){
             
         })
         .catch(err => console.error(err));
+        dispatch(toggleSpinner(false));
     }
 
     const debounce = (fn,d=500)=>{
@@ -74,6 +78,7 @@ function Navbar(){
             
             </Paper>:<Box sx={{m: 2, float:'left'}}><ArrowBackIcon style={{width:50}} onClick={()=>dispatch(deleteMovieId())} /><b style={{m:5}}>Movie Details</b></Box>}
             <Box sx={{m: 2, float:'right'}}><HomeIcon onClick={()=>dispatch(deleteMovieId())} /></Box>
+            
         </div>
 )}
 export default Navbar;

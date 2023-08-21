@@ -1,15 +1,18 @@
 import * as React from 'react';
 import './App.css';
 import { useEffect,useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleSpinner } from './redux';
 
 export default function Details(){
     const [detail,setDetail]=useState([]);
     const movieId = useSelector((state)=>state.movieId);
     useEffect(()=>fetchDetail(movieId)
     ,[])
+    const dispatch = useDispatch()
 
     function fetchDetail(id){
+        dispatch(toggleSpinner(true));
         const options = {
             method: 'GET',
             headers: {
@@ -20,7 +23,9 @@ export default function Details(){
           
           fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
             .then(response => response.json())
-            .then(response => setDetail(response))
+            .then(response => {
+                setDetail(response);
+                dispatch(toggleSpinner(false))})
             .catch(err => console.error(err));
     }
     return(
@@ -36,6 +41,7 @@ export default function Details(){
                 <div>
                     Description:{detail.overview}
                 </div>
+                
             </div>
             
         </div>

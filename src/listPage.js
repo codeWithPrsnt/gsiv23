@@ -18,7 +18,7 @@ export default function ListPage(){
 
     function fetchMovies(){
         dispatch(toggleSpinner(true));
-        console.log('fetchMovies');
+        //console.log('fetchMovies');
         
         const options = {
         method: 'GET',
