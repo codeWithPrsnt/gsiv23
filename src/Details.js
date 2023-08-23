@@ -3,15 +3,19 @@ import './App.css';
 import { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSpinner } from './redux';
+import {useParams} from 'react-router-dom';
 
 export default function Details(){
     const [detail,setDetail]=useState([]);
-    const movieId = useSelector((state)=>state.movieId);
-    useEffect(()=>fetchDetail(movieId)
+    const params = useParams();
+    
+    
+    useEffect(()=>fetchDetail()
     ,[])
     const dispatch = useDispatch()
 
-    function fetchDetail(id){
+    function fetchDetail(){
+        const id = params.movieId;
         dispatch(toggleSpinner(true));
         const options = {
             method: 'GET',

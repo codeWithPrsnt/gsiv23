@@ -5,32 +5,43 @@ import Navbar from './navbar';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import Spinner from './Spinner';
-//import { toggleSpinner } from './redux';
-import { Suspense, lazy } from "react";
+
+import {lazy,Suspense } from "react";
+import {MemoryRouter as Router,Routes, Route,redirect} from 'react-router-dom';
+
+
+
 const ListPage = lazy(() => import('./listPage'))
 const Details = lazy(() => import('./Details'))
 
+const details=()=><Suspense fallback=
+                {<div>Details Page is loading please wait...</div>}>
+                <Details />
+              </Suspense>
+const listPage=()=><Suspense fallback=
+                {<div>ListPage is loading please wait...</div>}>
+                <ListPage />
+              </Suspense>
+  
 
 
 function App() {
   
-  const movieId = useSelector((state)=>state.movieId);
+
   const spinner = useSelector((state)=>state.spinner);
 
 
   return (
-    <div className="App">
+    <Router>
       <Navbar/>
       {spinner && <Spinner/>}
-      {movieId>0?<Suspense fallback=
-{<div>Details Page is loading please wait...</div>}>
-                <Details />
-            </Suspense>:
-            <Suspense fallback=
-{<div>ListPage is loading please wait...</div>}>
-                <ListPage />
-            </Suspense>}
-    </div>
+      <Routes>
+        <Route exact path={'/'} Component={listPage }/>
+        <Route path={'/Details/:movieId'} Component={details}/>
+        <Route path='*' render={()=><redirect to="/" />}/>
+      
+      </Routes>
+    </Router>
   );
 }
 

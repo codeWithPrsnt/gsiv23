@@ -5,10 +5,11 @@ import { useEffect,useState } from 'react';
 import {addMovieId,addMovieList,toggleSpinner} from './redux';
 import { useDispatch} from 'react-redux';
 import { useSelector } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 
-export default function ListPage(){
-    
+export default function ListPage(props){
+    const navigate=useNavigate();
     const movieList = useSelector((state)=>state.movieList)
     const dispatch = useDispatch();
     const [pageNumber,setPageNumber]=useState(1);
@@ -44,7 +45,12 @@ return(
                 dispatch(toggleSpinner(false));
             return (
             <div className="card" key={movie.id}>
-            <Card   sx={{padding:2,m:2 ,height:300}} onClick={()=>{dispatch(addMovieId(movie.id))}}>
+            <Card   sx={{padding:2,m:2 ,height:300}} onClick={()=>{
+                dispatch(addMovieId(movie.id));
+                console.log(movie.id);
+                navigate(`/Details/${movie.id}`,{replace:true});
+
+                }}>
                 <img
                 className='card-img'
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}

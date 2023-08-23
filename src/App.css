@@ -45,7 +45,8 @@ button{
 .detailImg{
   width: 25%;
   height: 250px;
-  object-fit: fill;
+  object-fit: contain;
+  background-color: gray;
   float: left;
   margin: 5px;
   

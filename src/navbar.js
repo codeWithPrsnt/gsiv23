@@ -11,12 +11,13 @@ import {deleteMovieId,updateMovieList,addMovieList} from './redux';
 import { useDispatch} from 'react-redux';
 import { useSelector } from 'react-redux';
 import { toggleSpinner } from './redux';
+import {useNavigate} from 'react-router-dom';
 
 
 function Navbar(){
     const movieId = useSelector((state)=>state.movieId);
     const dispatch = useDispatch();
-
+    const navigate=useNavigate();
     const search=(val)=>{
         dispatch(toggleSpinner(true));
         console.log("search");
@@ -67,7 +68,7 @@ function Navbar(){
     const debouncing =debounce(search);
 
     return(<div className="Apps">
-            {movieId==0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'60%' ,float:'left',backgroundColor:'#9B9B9B'}}>
+            {movieId===0?<Paper component="form" sx={{ p: '2px 4px',  width:500,maxWidth:'60%' ,float:'left',backgroundColor:'#9B9B9B'}}>
             <IconButton type="button" sx={{ p: '10px',width:50 , maxWidth:'10%' }} aria-label="search"><SearchIcon /></IconButton>
             <InputBase sx={{ ml: 1, flex: 1, width:400,maxWidth:'60%' }} placeholder="Search " inputProps={{ 'aria-label': 'search' }} 
             onChange={(e)=>{
@@ -76,8 +77,14 @@ function Navbar(){
                 else fetchMovies();
                 }}/>
             
-            </Paper>:<Box sx={{m: 2, float:'left'}}><ArrowBackIcon style={{width:50}} onClick={()=>dispatch(deleteMovieId())} /><b style={{m:5}}>Movie Details</b></Box>}
-            <Box sx={{m: 2, float:'right'}}><HomeIcon onClick={()=>dispatch(deleteMovieId())} /></Box>
+            </Paper>:<Box sx={{m: 2, float:'left'}}><ArrowBackIcon style={{width:50}} onClick={()=>{
+                dispatch(deleteMovieId());
+                navigate('/',{replace:true});
+                }} /><b style={{m:5}}>Movie Details</b></Box>}
+            <Box sx={{m: 2, float:'right'}}><HomeIcon onClick={()=>{
+                dispatch(deleteMovieId());
+                navigate('/',{replace:true});
+                }} /></Box>
             
         </div>
 )}
