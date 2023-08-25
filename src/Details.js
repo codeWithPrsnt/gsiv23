@@ -40,7 +40,7 @@ export default function Details(){
             <div className='movieDetail'>
                 <div className='movieTitle'><b>{detail.title}</b> ({detail.vote_average})</div>
                 
-                <div>{detail.release_date} | {detail.runtime} | {detail.director?detail.director:'NA'}</div>
+                <div>{new Date(detail.release_date).getFullYear()} | {detail.runtime} | {detail.director?detail.director:'NA'}</div>
                 <div>Cast:{detail.cast?JSON.stringify(detail.cast):'NA'}</div>
                 <div>
                     Description:{detail.overview}
