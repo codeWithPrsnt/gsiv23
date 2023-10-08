@@ -34,13 +34,14 @@ function App() {
   return (
     <Router>
       <Navbar/>
-      {spinner && <Spinner/>}
+      
       <Routes>
         <Route exact path={'/'} Component={listPage }/>
         <Route path={'/Details/:movieId'} Component={details}/>
         <Route path='*' render={()=><redirect to="/" />}/>
       
       </Routes>
+      {spinner && <Spinner/>}
     </Router>
   );
 }
